@@ -1,0 +1,4 @@
+data source_annulus_grp10.pha
+ignore bad
+abund wilm
+setplot energy

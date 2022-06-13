@@ -1,0 +1,22 @@
+#=============================================================================#
+# Run the XRT pipeline on each observation
+>> python run_xrtpipeline.py
+
+#=============================================================================#
+# Prepare/clean all of the data for pile-up analysis
+>> python regions.py
+>> python pileup_clean.py
+
+# Perform the pile-up analysis on an observation
+>> python run_pileup_analysis.py
+>> python plot_pileup.py
+
+#=============================================================================#
+# Clean the data for each observation informed by the results of the pile-up analysis
+>> python clean.py
+
+# Retrieve some basic information about each cleaned dataset
+>> python run_basic_info.py
+
+#=============================================================================#
+# Move on to the analysis!

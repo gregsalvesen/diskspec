@@ -1,0 +1,101 @@
+XSPEC_EMCEE
+-----------
+
+This is a program to use emcee to do MCMC analyses of X-ray spectra in
+xspec.
+
+This program has the advantage over the built-in Goodman Weare sampler
+in xspec of being able to run multiple xspec processes simultaneously,
+speeding up the analysis. It can also switch to parameterizing norm
+parameters in log space.
+
+** Please acknowledge use of this code by Jeremy Sanders in any
+publications. **
+
+As described on their website, emcee is an extensible, pure-Python
+implementation of of Goodman & Weare's Affine Invariant Markov chain
+Monte Carlo (MCMC) Ensemble sampler.
+
+REQUIREMENTS:
+
+Python:   2.x  (2.5 or better)
+argparse: http://pypi.python.org/pypi/argparse (for Python < 2.7)
+h5py:     http://www.h5py.org/
+emcee:    http://danfm.ca/emcee/
+xspec:    http://heasarc.nasa.gov/xanadu/xspec/
+
+USAGE:
+
+The program will run using an input XCM file (loading data+model). It
+writes out an xspec-compatible chain file, plus a HDF5 data file
+containing the chains and log likelihoods.
+
+You need to choose the number of iterations, length of burn in period
+and number of walkers. Remember that for every iteration you get the
+number of walkers points in the output chain file. The chains from the
+walkers are flattened in the output .chain file, with all the results
+from one walker, followed by the next.
+
+The walkers are started clustered around the parameters of the XCM
+file given, using the delta value of the parameter as the width of a
+normal distribution (clipped to the hard bounds of the parameter
+range).  Make sure that the delta values of parameters are set to
+values smaller than the uncertainties on each parameter. Note,
+however, that xspec_emcee will do a fit on the model, and if the 0.1 *
+sigma of the parameter (as calculated from the covariance matrix) is
+bigger than this delta, then 0.1 * sigma is used instead. This is a
+safety mechanism as xspec has poorly chosen deltas for some inbuilt
+models. We don't always use sigma, as it can be very wrong (usually
+too large).
+
+The program can run multiple copies of xspec simultaneously. By
+default it runs one copy on a local machine. You can run multiple
+copies by providing a list of systems with the --systems option. The
+name localhost runs on the local system without ssh. For instance
+--systems="localhost localhost" runs two local copies of xspec. You
+may also use the syntax --systems='localhost*8' to run N copies on a
+system (here localhost).  You can run remote copies over ssh by using
+a different system name. Note that you will probably need to edit
+start_xspec.sh for non-remote systems to run appropriate
+initialisation files.
+
+The program prints out the number of times the xspec model has been
+evaluated as it runs (and the likelihood value -statistic/2).
+
+The program will flush the contents of the chain and likelihoods to
+the HDF5 file every 10 minutes after the burn-in period. Pressing Ctrl+C
+will also save the current state of the chain and exit. The chain can
+be continued with the --continue-run option.
+
+$ ./xspec_emcee.py --help
+usage: xspec_emcee.py [-h] [--niters N] [--nburn N] [--nwalkers N]
+                      [--systems LIST] [--output-hdf5 FILE]
+                      [--output-chain FILE] [--continue-run] [--debug]
+                      [--no-chdir] [--initial-parameters FILE] [--log-norm]
+                      XCM
+
+Xspec MCMC with EMCEE. Jeremy Sanders 2012-2016.
+
+positional arguments:
+  XCM                   Input XCM file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --niters N            Number of iterations (default: 5000)
+  --nburn N             Number of burn iterations (default: 500)
+  --nwalkers N          Number of walkers (default: 50)
+  --systems LIST        Space separated list of systems to run on (default:
+                        localhost)
+  --output-hdf5 FILE    Output HDF5 file (default: emcee.hdf5)
+  --output-chain FILE   Output text file (default: emcee.chain)
+  --continue-run        Continue from an existing chain (in HDF5) (default:
+                        False)
+  --debug               Create xspec log files (default: False)
+  --no-chdir            Do not chdir to xcm file directory before execution
+                        (default: False)
+  --initial-parameters FILE
+                        Provide initial parameters (default: None)
+  --log-norm            log norm values during MCMC (default: False)
+
+TODO:
+ - Use local xspec to find remote xspecs automatically?

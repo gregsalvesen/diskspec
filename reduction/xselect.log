@@ -1,0 +1,62 @@
+!xselect 08:59:24 13-Dec-2018
+ Command not found; type ? for a command listing
+!xsel:SUZAKU > read read_what=event infiles=sw00030111057xwtw2po_cl.evt data_di
+r=/Users/salvesen/research/fcolabs/data/clean/00030111057/ reset_inst=yes reset
+_miss=yes reset_datamode=yes
+Got new mission: SWIFT
+ Notes: XSELECT set up for      SWIFT
+ Time keyword is TIME       in units of s
+ Default timing binsize =   1.0000
+ 
+Setting...
+ Image  keywords   = X          Y           with binning =    1
+ WMAP   keywords   = X          Y           with binning =    1
+ Energy keyword   = PI                     with binning =    1
+ 
+Getting Min and Max for Energy Column...
+Got min and max for PI:     0   1023
+ 
+Got the minimum time resolution of the read data:  0.17791E-02
+MJDREF =  5.1910000742870E+04 with TIMESYS = TT
+ Number of files read in:            1
+=/Users/salvesen/research/fcolabs/reduction/xsel_read_cat.xsl" "keywords=@/User
+s/salvesen/research/fcolabs/reduction/xsel_obslist.def" maxlen=11 minlen=0 ifor
+m=I8 "eform=E8.2" quiet=yes omit=no
+******************** Observation Catalogue ********************
+ 
+Data Directory is: /Users/salvesen/research/fcolabs/data/clean/00030111057/
+HK Directory is: /Users/salvesen/research/fcolabs/data/clean/00030111057/
+display.def" "-" prhead = no pagewidth = 128 wrap = yes showunit = no tdisp = y
+es
+ 
+ 
+        OBJECT      OBS_ID      DATE-OBS            DATAMODE
+      1 V4641       00030111057 2015-08-11T00:33:39 WINDOWED
+!xsel:SWIFT-XRT-WINDOWED > filter filter_what=region region=/Users/salvesen/res
+earch/fcolabs/data/regions/V4641_background_annulus.reg
+!xsel:SWIFT-XRT-WINDOWED > filter filter_what=grade grade=0-2
+!xsel:SWIFT-XRT-WINDOWED > extract bin_what=spectrum
+"xsel_region.xsl" qdpfile = NONE fitsbinlc = NONE unbinlc = NONE phafile = "xse
+l_hist.xsl" imgfile = NONE timefile = NONE adjustgti=yes gstring = 0-2 timeorde
+r = no xcolf = X ycolf = Y xcolh = X ycolh = Y xfkey = TLMAX yfkey = TLMAX xhke
+y = TLMAX yhkey = TLMAX phamax = TLMAX specbin = 1 binh = 1 binf = 1 binlc = "1
+.0000000E+00" tcol = TIME ecol = PI ccol = NONE gcol = GRADE gti = GTI events =
+ EVENTS gtitxt = "xsel_ascii_out.xsl" timeref = "40000.00" wtmapb = yes wtmapfi
+x = yes swmapx = no swmapy = no wmapver = 2 gtinam = GTI exitnow = no
+extractor v5.34     2 Nov 2017
+ Getting FITS WCS Keywords
+ Doing file: /Users/salvesen/research/fcolabs/data/clean/00030111057/sw00030111
+057xwtw2po_cl.evt[regfilter("xsel_region.xsl",X,Y)]
+          Total      Good    Bad: Time     Phase     Grade       Cut
+            360       360            0         0         0         0
+===============================================================================
+    Grand Total      Good    Bad: Time     Phase     Grade       Cut
+            360       360            0         0         0         0
+   in  1088.8     seconds
+ Spectrum         has      360 counts for 0.3306     counts/sec
+Keyword TLM2FITS has two values: 'V6.4' and 'V6.4    '
+ ... written the PHA data Extension
+earch/fcolabs/data/clean/00030111057/background_00030111057.pha clobberit=yes
+Wrote spectrum to /Users/salvesen/research/fcolabs/data/clean/00030111057/backg
+round_00030111057.pha
+!xsel:SWIFT-XRT-WINDOWED > exit save_session=no

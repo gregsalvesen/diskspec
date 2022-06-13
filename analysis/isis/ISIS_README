@@ -1,0 +1,40 @@
+THE PLAN:
+=========
+
+(1) isis_TBabs_diskbb.sl
+Fit the data with the model "TBabs*diskbb" w/ nH free.
+We discover that the best-fit nH matches the Galactic value.
+
+(2) isis_diskbb.sl
+Fit the data with the model "TBabs*diskbb" w/ nH frozen to its Galactic value.
+This just shows that we still get a good fit when nH is no longer a free parameter.
+
+(3a) isis_diskbb_powerlaw.sl
+(3b) isis_diskbb_simpl.sl
+(3c) isis_diskbb_compTT.sl
+Incorporate a high-energy component (powerlaw, simpl, compTT) into the base model "TBabs*diskbb".
+This shows that the fit is not much improved and justifies doing w/o a high-energy component.
+We will need to arbitrarily choose "Index", "kT", "Gamma" for powerlaw, compTT, simpl.
+
+(4) isis_kerrbb.sl
+Fit the data with the model "TBabs*kerrbb" w/ nH frozen to its Galactic value.
+All static system parameters (M, D, inc, a) are frozen to their "known" values.
+The two free parameters are Mdot and fcol.
+
+(5b) isis_kerrbb_simpl.sl <--!!! THIS STEP STILL NEEDS WORK
+Incorporate a high-energy component (powerlaw, simpl, compTT) into the base model "TBabs*kerrbb".
+We will need to arbitrarily choose "Gamma" for simpl.
+
+(6) isis_mcmc_kerrbb.sl
+Based on the best-fit model from (4), perform the MCMC fitting w/ the model "TBabs*kerrbb".
+
+(7) analyze_isis_mcmc_kerrbb.py
+Analyze the results from (6). Plot figures, derive best-fit parameters, etc...
+
+
+TO DO:
+======
+bhspec.sl
+analyze_mcmc_kerrbb.sl
+
+

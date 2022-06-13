@@ -1,0 +1,40 @@
+This file outlines the procedure for producing all results relevant to two related projects on GRO J1655-40: (1) confirming the 15 degree spin-orbit misalignment by measuring the inner disk inclination angle; and (2) measuring black hole spin and f_col from disk continuum fitting.
+
+General procedure:
+(1) Show that a 
+(2)
+(3)
+(4)
+
+===========
+REDUCE DATA
+===========
+Excise inner pixels to account for pile-up.
+Repeat procedures below for ALL data sets.
+
+
+=========
+XSPEC_CHI
+=========
+*** Fit TBabs*diskbb to each individual Swift/XRT spectrum ***
+cd xspec_chi
+python xspec_perform_fits.py
+
+
+*** Fit TBabs*(diskbb+powerlaw) to each individual Swift/XRT spectrum ***
+*** Fit TBabs*(???simpl*diskbb) to each individual Swift/XRT spectrum ***
+*** Fit TBabs*(diskbb+compTT) to each individual Swift/XRT spectrum ***
+
+
+*** Fit TBabs*kerrbb to each individual Swift/XRT spectrum ***
+
+
+*** Fit TBabs*(kerrbb+powerlaw) to each individual Swift/XRT spectrum ***
+*** Fit TBabs*(???simpl*kerrbb) to each individual Swift/XRT spectrum ***
+*** Fit TBabs*(kerrbb+compTT) to each individual Swift/XRT spectrum ***
+
+
+
+===========
+XSPEC_EMCEE
+===========
